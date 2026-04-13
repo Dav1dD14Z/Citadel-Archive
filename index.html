@@ -6,7 +6,7 @@
     <link rel="icon" href="./assets/Icon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/main.css">
     <title>Citadel Archive</title>
 </head>
@@ -16,20 +16,47 @@
             <figure>
                 <img class="header__image" src="./assets/Icon.svg" alt="Citadel Archive logo" decoding="async" loading="lazy" title="Citadel Archive logo">
             </figure>
-            <h2 class="header__title">Citadel Archive</h2>
+            <h1 class="header__title">Citadel Archive</h1>
         </article>
-        <form class="header__form" method="post">
-            <input id="search" name="search" class="header__input" type="text" placeholder="Search across dimensions..." required title="This field must contain 3-15 letters" minlength="3" pattern="[a-zA-Z\s]{3,30}">
+        <form class="header__form" role="search">
+            <input id="search" name="search" class="header__input" type="text" placeholder="Search across dimensions..." required title="This field must contain at least 3 characters" minlength="3">
         </form>
         <nav class="header__navigation" aria-label="Main navigation links">
-            <a href="/" class="header__link" aria-label="Notification link" title="Notifications">
+            <a href="#" class="header__link" aria-label="Notification link" title="Notifications">
                 <img src="./assets/icons/notification.svg" alt="Notification logo" loading="lazy" decoding="async" aria-hidden="true">
             </a>
-            <a href="/" class="header__link" aria-label="Profile link" title="Profile">
+            <a href="#" class="header__link" aria-label="Profile link" title="Profile">
                 <img src="./assets/icons/Profile.svg" alt="Profile logo" loading="lazy" decoding="async" aria-hidden="true">
             </a>
         </nav>
     </header>
+    <main class="main">
+        <section class="hero">
+            <article class="hero__information">
+                <p class="hero__introduction">Archive explorer V.3.0</p>
+                <h2 class="hero__title">
+                    Search the <span>Multiverse</span>
+                </h2>
+                <p class="hero__description">
+                    Access deep-space bio-scans and cross-dimensional character logs from the Central Finite Curve database.
+                </p>
+            </article>
+            <article class="hero__search">
+                <form role="search" class="hero__form">
+                    <input id="searchCharacter" class="hero__input" type="text" placeholder="Search characters.." minlength="3" required title="This field must contain at least 3 characters">
+                    <div class="hero__links">
+                        <select name="select" id="select" class="hero__select" aria-label="Filter by the status of the characters">
+                            <option value="all" class="hero__option" selected>All Statuses</option>
+                            <option value="alive" class="hero__option">Alive</option>
+                            <option value="dead" class="hero__option">Dead</option>
+                            <option value="unknown" class="hero__option">Unknown</option>
+                        </select>
+                        <button class="hero__button" type="submit" title="Execute scan">Execute Scan</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
 
     <script src="./js/main.js" defer></script>
 </body>

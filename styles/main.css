@@ -1,6 +1,7 @@
 @import url('./variables.css');
 @import url('./components/header.css');
 @import url('./components/aside.css');
+@import url('./components/hero.css');
 
 * {
     box-sizing: border-box;
@@ -11,5 +12,9 @@
 body {
     color: var(--neutral-color);
     background-color: var(--main-background-color);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+    padding: 2rem;
 }

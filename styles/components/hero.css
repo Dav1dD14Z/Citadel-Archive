@@ -1,0 +1,143 @@
+/* Hero */
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 5.5vw, 5rem);
+    padding: 2rem 0;
+}
+
+/* Hero Information */
+
+.hero__information {
+    width: 100%;
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.hero__introduction {
+    width: 100%;
+    font-family: "Bebas Neue", sans-serif;
+    letter-spacing: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.hero__title {
+    font-size: 3rem;
+    margin: 0.2rem 0;
+    color: var(--text-color);
+}
+
+.hero__title > span {
+    font-style: italic;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+.hero__description {
+    color: var(--primary-text-color);
+    line-height: 1.6;
+}
+
+/* Hero form */
+.hero__search {
+    width: 100%;
+    max-width: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(2.5rem, 5vw, 4.2rem) 2rem;
+    border-radius: 1rem;
+    background-color: hsl(from var(--main-background-color) h s calc(l + 2));
+}
+
+.hero__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 2.5vw, 1.8rem);
+}
+
+.hero__input {
+    width: 100%;
+    outline: none;
+    border: 2px solid var(--primary-text-color);
+    padding: 0.7rem 2rem;
+    border-radius: 2rem;
+    color: var(--text-color);
+    transition: 0.3s ease border-color;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.hero__input:is(:hover, :focus-visible){
+    border-color: var(--primary-color);
+}
+
+.hero__links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.hero__select,
+.hero__button {
+    width: 100%;
+    outline: none;
+    margin: 0.5rem 0;
+    border: 2px solid transparent;
+    border-radius: 2rem;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    transition: 0.3s ease color, 0.3s ease background-color;
+    letter-spacing: 0.1rem;
+    font-size: 0.9rem;
+}
+
+.hero__select {
+    color: var(--secondary-color);
+    background-color: transparent;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}
+
+.hero__select:is(:hover, :focus-visible) {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.hero__option {
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: hsl(from var(--main-background-color) h s calc(l + 2));
+}
+
+.hero__button {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.hero__button:is(:hover, :focus-visible) {
+    border-color: var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+@media screen and (min-width: 400px){
+    .hero__button,
+    .hero__select {
+        width: 48%;
+        margin: 0;
+    }
+}
