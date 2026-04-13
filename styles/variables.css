@@ -1,2 +1,11 @@
 :root {
+    --primary-color: #A6E22E;
+    --secondary-color: #00D4FF;
+    --tertiary-color: #B7A805;
+    --neutral-color: #0F172A;
+    --text-color: #ffffff;
+
+    --main-background-color: #060E20;
+    --header-background-color: #060E20;
+
 }

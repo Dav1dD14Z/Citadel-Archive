@@ -4,10 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/Icon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/main.css">
     <title>Citadel Archive</title>
 </head>
 <body>
+    <header class="header">
+        <article class="header__logo">
+            <figure>
+                <img class="header__image" src="./assets/Icon.svg" alt="Citadel Archive logo" decoding="async" loading="lazy" title="Citadel Archive logo">
+            </figure>
+            <h2 class="header__title">Citadel Archive</h2>
+        </article>
+        <form class="header__form" method="post">
+            <input id="search" name="search" class="header__input" type="text" placeholder="Search across dimensions..." required title="This field must contain 3-15 letters" minlength="3" pattern="[a-zA-Z\s]{3,30}">
+        </form>
+        <nav class="header__navigation" aria-label="Main navigation links">
+            <a href="/" class="header__link" aria-label="Notification link" title="Notifications">
+                <img src="./assets/icons/notification.svg" alt="Notification logo" loading="lazy" decoding="async" aria-hidden="true">
+            </a>
+            <a href="/" class="header__link" aria-label="Profile link" title="Profile">
+                <img src="./assets/icons/Profile.svg" alt="Profile logo" loading="lazy" decoding="async" aria-hidden="true">
+            </a>
+        </nav>
+    </header>
 
     <script src="./js/main.js" defer></script>
 </body>
