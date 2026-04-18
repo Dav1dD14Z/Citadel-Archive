@@ -53,9 +53,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: clamp(2rem, 3vw, 2.5rem) 2rem;
+    padding: clamp(2rem, 3vw, 2rem) 2rem;
     border-radius: 1rem;
-    background-color: hsl(from var(--main-background-color) h s calc(l + 2));
+    background: linear-gradient(hsl(from var(--secondary-color) h s l / 0.15), var(--main-background-color) 80%);
 }
 
 .hero__form {
@@ -70,7 +70,7 @@
     width: 100%;
     outline: none;
     border: 2px solid var(--primary-text-color);
-    padding: 0.7rem 2rem;
+    padding: 0.9rem 2rem;
     border-radius: 2rem;
     color: var(--text-color);
     transition: 0.3s ease border-color;
@@ -97,9 +97,9 @@
     margin: 0.5rem 0;
     border: 2px solid transparent;
     border-radius: 2rem;
-    padding: 0.5rem 1.1rem;
+    padding: 0.8rem 1.1rem;
     cursor: pointer;
-    transition: 0.3s ease color, 0.3s ease background-color;
+    transition: 0.3s ease all;
     letter-spacing: 0.1rem;
     font-size: 0.9rem;
 }
@@ -131,6 +131,13 @@
     border-color: var(--primary-color);
     background-color: transparent;
     color: var(--primary-color);
+}
+
+.hero__button:active {
+    transform: scale(0.95);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 @media screen and (min-width: 400px){
