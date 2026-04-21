@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .cards__information {
@@ -25,7 +26,7 @@
 .cards__title {
     font-size: clamp(1rem, 2rem, 1.3rem);
     color: var(--text-color);
-    font-weight: lighter;
+    font-weight: bold;
 }
 
 .cards__number {
@@ -80,6 +81,130 @@
     background-color: hsl(from var(--main-background-color) h s calc(l + 2));
 }
 
+
+/* Cards */
+.cards__container {
+    width: 100%;
+    max-width: 70rem;
+    margin: 3rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.card {
+    width: 100%;
+    position: relative;
+    border-radius: 1rem;
+    background-color: hsl(from var(--main-background-color) h calc(s + 5) calc(l + 7));
+    box-shadow: 0 0 20px hsl(from var(--primary-color) h s l / 0.5);
+}
+
+.card:nth-child(even) {
+    box-shadow: 0 0 20px hsl(from var(--secondary-color) h s l / 0.5);
+}
+
+.card__status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    background-color: hsl(from var(--main-background-color) h calc(s + 5) calc(l + 7));
+}
+
+.card__status > p {
+    font-family:"Bebas Neue", Arial, Helvetica, sans-serif ;
+    letter-spacing: 0.15rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.card__circle {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.card__figure {
+    width: 100%;
+}
+
+.card__img {
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.card__information {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 1.5rem 1.5rem 1.7rem 1.5rem;
+    color: var(--text-color);
+}
+
+.card__planet {
+    letter-spacing: 0.2rem;
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.card__links {
+    width: 100%;
+    display: flex;
+    margin-top: 2rem;
+}
+
+.card__link {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: hsl(from var(--primary-text-color) h s calc( l + 20));
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s ease color;
+    outline: none;
+}
+
+.card__link:is(:hover, :focus-visible, :focus-within) {
+    color: var(--primary-color);
+}
+
+.card__arrowImage {
+    width: 0.8rem;
+    height: 0.8rem;
+    transition: 0.3s ease;
+}
+
+.card__arrowImage--active {
+    display: none;
+}
+
+.card__link:is(:hover, :focus-visible, :focus-within) .card__arrowImage--active {
+    display: block;
+}
+
+.card__link:is(:hover, :focus-visible, :focus-within) .card__arrowImage--default {
+    display: none;
+}
+
 @media screen and (min-width:768px) {
     .cards__information {
         justify-content: space-between;
@@ -87,6 +212,10 @@
 
     .cards__filter {
         display: block;
+    }
+
+    .card {
+        max-width: 20rem;
     }
 }
 
