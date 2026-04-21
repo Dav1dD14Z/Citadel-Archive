@@ -1,0 +1,97 @@
+/* Cards Section */
+.cards {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.cards__information {
+    width: 100%;
+    max-width: 70rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.cards__results {
+    width: 100%;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.cards__title {
+    font-size: clamp(1rem, 2rem, 1.3rem);
+    color: var(--text-color);
+    font-weight: lighter;
+}
+
+.cards__number {
+    color: var(--primary-text-color);
+}
+
+/* Cards Filter Section */
+.cards__filter {
+    max-width: 20rem;
+    display: none;
+}
+
+.cards__status {
+    width: 100%;
+    outline: none;
+    border: 2px solid var(--secondary-color);
+    text-align: center;
+    border-radius: 2rem;
+    padding: 0.8rem 1.1rem;
+    cursor: pointer;
+    transition: 0.3s ease all;
+    letter-spacing: 0.1rem;
+    font-size: 0.9rem;
+    background-color: transparent;
+    color: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Styles depending on the option selected */
+.cards__status--dead {
+    border-color: var(--red-color);
+    color: var(--red-color);
+    box-shadow: 0 0 10px var(--red-color);
+}
+
+.cards__status--alive {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.cards__status--unknown {
+    border-color: var(--yellow-color);
+    color: var(--yellow-color);
+    box-shadow: 0 0 10px var(--yellow-color);
+}
+/* End of the styles for this section*/
+
+.cards__option {
+    color: var(--text-color);
+    text-align: left;
+    background-color: hsl(from var(--main-background-color) h s calc(l + 2));
+}
+
+@media screen and (min-width:768px) {
+    .cards__information {
+        justify-content: space-between;
+    }
+
+    .cards__filter {
+        display: block;
+    }
+}
+
+@media screen and (min-width:850px) {
+    .cards__information {
+        padding: 0 2rem;
+    }
+}

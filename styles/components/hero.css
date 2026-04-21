@@ -112,10 +112,25 @@
     box-shadow: 0 0 10px var(--secondary-color);
 }
 
-.hero__select:is(:hover, :focus-visible) {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
+/* Styles depending on the option selected */
+.hero__select--dead {
+    border-color: var(--red-color);
+    color: var(--red-color);
+    box-shadow: 0 0 10px var(--red-color);
 }
+
+.hero__select--alive {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.hero__select--unknown {
+    border-color: var(--yellow-color);
+    color: var(--yellow-color);
+    box-shadow: 0 0 10px var(--yellow-color);
+}
+/* End of the Section */
 
 .hero__option {
     cursor: pointer;

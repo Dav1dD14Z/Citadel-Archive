@@ -45,7 +45,7 @@
                 <form role="search" class="hero__form">
                     <input id="searchCharacter" class="hero__input" type="text" placeholder="Search characters.." minlength="3" required title="This field must contain at least 3 characters">
                     <div class="hero__links">
-                        <select name="select" id="select" class="hero__select" aria-label="Filter by the status of the characters">
+                        <select name="select" id="heroSelect" class="hero__select" aria-label="Filter by the status of the characters">
                             <option value="all" class="hero__option" selected>All Statuses</option>
                             <option value="alive" class="hero__option">Alive</option>
                             <option value="dead" class="hero__option">Dead</option>
@@ -54,6 +54,23 @@
                         <button class="hero__button" type="submit" title="Execute scan">Execute Scan</button>
                     </div>
                 </form>
+            </article>
+
+        </section>
+        <section class="cards">
+            <article class="cards__information">
+                <div class="cards__results">
+                    <h2 class="cards__title">Registry Results</h2>
+                    <p class="cards__number">[846]</p>
+                </div>
+                <div class="cards__filter">
+                    <select name="characterStatus" id="characterStatus" class="cards__status" aria-label="Filter by the status of the characters">
+                        <option value="all" class="cards__option" selected>All Statuses</option>
+                        <option value="alive" class="cards__option">Alive</option>
+                        <option value="dead" class="cards__option">Dead</option>
+                        <option value="unknown" class="cards__option">Unknown</option>
+                    </select>
+                </div>
             </article>
         </section>
     </main>
