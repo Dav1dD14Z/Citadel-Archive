@@ -86,23 +86,25 @@
 .cards__container {
     width: 100%;
     max-width: 70rem;
-    margin: 3rem 0;
+    margin: clamp(1.8rem, 3vw, 2.5em) 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 3rem;
+    gap: clamp(3rem, 5vw, 3.5rem);
 }
 
 .card {
-    width: 100%;
+    width: 85%;
     position: relative;
     border-radius: 1rem;
-    background-color: hsl(from var(--main-background-color) h calc(s + 5) calc(l + 7));
+    overflow: hidden;
+    background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--primary-color) h s l / 0.15));
     box-shadow: 0 0 20px hsl(from var(--primary-color) h s l / 0.5);
 }
 
 .card:nth-child(even) {
+    background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--secondary-color) h s l / 0.15));
     box-shadow: 0 0 20px hsl(from var(--secondary-color) h s l / 0.5);
 }
 
@@ -141,6 +143,7 @@
 
 .card__img {
     width: 100%;
+    aspect-ratio: 1/1;
     object-fit: cover;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -190,19 +193,12 @@
 .card__arrowImage {
     width: 0.8rem;
     height: 0.8rem;
-    transition: 0.3s ease;
+    text-decoration: none;
+    transition: 0.5s ease-in-out transform;
 }
 
-.card__arrowImage--active {
-    display: none;
-}
-
-.card__link:is(:hover, :focus-visible, :focus-within) .card__arrowImage--active {
-    display: block;
-}
-
-.card__link:is(:hover, :focus-visible, :focus-within) .card__arrowImage--default {
-    display: none;
+.card__link:is(:hover, :focus-visible, :focus-within) .card__arrowImage {
+    transform: translateX(0);
 }
 
 @media screen and (min-width:768px) {
@@ -217,6 +213,11 @@
     .card {
         max-width: 20rem;
     }
+
+    .card__arrowImage {
+        transform: translateX(-9.5rem);
+    }
+
 }
 
 @media screen and (min-width:850px) {
