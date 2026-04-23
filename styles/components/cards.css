@@ -101,27 +101,37 @@
     border-radius: 1rem;
     overflow: hidden;
     transition: 0.3s ease-in-out all;
-    background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--primary-color) h s l / 0.15));
 }
+
+/* Styles based on each character status */
+.card--alive {
+    background: linear-gradient(var(--main-background-color) 68%, hsl(from var(--primary-color) h s l / 0.15));
+}
+
+.card--dead {
+    background: linear-gradient(var(--main-background-color) 68%, hsl(from var(--red-color) h s l / 0.15));
+}
+
+.card--unknown {
+    background: linear-gradient(var(--main-background-color) 68%, hsl(from var(--yellow-color) h s l / 0.15));
+}
+/* End */
 
 .card:is(:hover, :focus-within) {
     transform: translateY(-0.5rem);
-}
-
-.card:nth-child(even) {
-    background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--red-color) h s l / 0.15));
 }
 
 .card__status {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    width: 5rem;
+    min-width: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.3rem 0.8rem;
     border-radius: 1rem;
+    gap: 0 0.5rem;
     background-color: hsl(from var(--main-background-color) h calc(s + 5) calc(l + 7));
 }
 
@@ -140,6 +150,23 @@
     background-color: var(--primary-color);
     box-shadow: 0 0 10px var(--primary-color);
 }
+
+/* Styles based on each character status */
+.card__circle--alive {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.card__circle--dead {
+    background-color: var(--red-color);
+    box-shadow: 0 0 10px var(--red-color);
+}
+
+.card__circle--unknown {
+    background-color: var(--yellow-color);
+    box-shadow: 0 0 10px var(--yellow-color);
+}
+/* End */
 
 .card__figure {
     width: 100%;
@@ -163,11 +190,37 @@
     color: var(--text-color);
 }
 
-.card__planet {
+.card__name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card__info {
     letter-spacing: 0.2rem;
-    color: var(--secondary-color);
     font-size: 0.8rem;
     text-transform: uppercase;
+    margin: 0.25rem 0 0 0;
+}
+
+/* Styles based on each character status */
+.card__info--alive {
+    color: var(--primary-color);
+}
+
+.card__info--dead {
+    color: var(--red-color);
+}
+
+.card__info--unknown {
+    color: var(--yellow-color);
+}
+/* End */
+
+.card__info > span {
+    display: block;
+    color: var(--primary-text-color);
+    text-transform: capitalize;
+    letter-spacing: 0.1rem;
 }
 
 .card__links {
@@ -195,9 +248,19 @@
     text-underline-offset: 0.25rem;
 }
 
-.card:is(:hover, :focus-visible, :focus-within) .card__link {
+/* Styles based on each character status */
+.card:is(:hover, :focus-visible, :focus-within) .card__link--alive {
     color: var(--primary-color);
 }
+
+.card:is(:hover, :focus-visible, :focus-within) .card__link--dead {
+    color: var(--red-color);
+}
+
+.card:is(:hover, :focus-visible, :focus-within) .card__link--unknown {
+    color: var(--yellow-color);
+}
+/* End */
 
 .card__arrowImage {
     width: 0.8rem;
