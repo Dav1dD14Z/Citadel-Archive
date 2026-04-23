@@ -25,7 +25,6 @@ export const fetchData = async (URL) => {
     if(!response.ok) throw new Error("Error loading the data. Try again");
 
     let data = await response.json();
-    console.log(data);
     return data.results
 };
 
