@@ -96,16 +96,20 @@
 
 .card {
     width: 85%;
+    cursor: pointer;
     position: relative;
     border-radius: 1rem;
     overflow: hidden;
+    transition: 0.3s ease-in-out all;
     background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--primary-color) h s l / 0.15));
-    box-shadow: 0 0 20px hsl(from var(--primary-color) h s l / 0.5);
+}
+
+.card:is(:hover, :focus-within) {
+    transform: translateY(-0.5rem);
 }
 
 .card:nth-child(even) {
-    background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--secondary-color) h s l / 0.15));
-    box-shadow: 0 0 20px hsl(from var(--secondary-color) h s l / 0.5);
+    background: linear-gradient(var(--main-background-color) 80%, hsl(from var(--red-color) h s l / 0.15));
 }
 
 .card__status {
@@ -186,7 +190,12 @@
     outline: none;
 }
 
-.card__link:is(:hover, :focus-visible, :focus-within) {
+.card__link > p {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+}
+
+.card:is(:hover, :focus-visible, :focus-within) .card__link {
     color: var(--primary-color);
 }
 
@@ -194,11 +203,12 @@
     width: 0.8rem;
     height: 0.8rem;
     text-decoration: none;
-    transition: 0.5s ease-in-out transform;
+    transition: 0.5s ease-in-out all;
 }
 
-.card__link:is(:hover, :focus-visible, :focus-within) .card__arrowImage {
+.card:is(:hover, :focus-visible, :focus-within) .card__arrowImage {
     transform: translateX(0);
+    opacity: 1;
 }
 
 @media screen and (min-width:768px) {
@@ -216,6 +226,7 @@
 
     .card__arrowImage {
         transform: translateX(-9.5rem);
+        opacity: 0;
     }
 
 }
