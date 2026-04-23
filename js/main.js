@@ -6,7 +6,7 @@ const main = () => {
         updateSelectStyles(info.id, info.mainClass);
     });
 
-    renderCards('https://rickandmortyapi.com/api/character/?page=4');
+    renderCards('https://rickandmortyapi.com/api/character/?page=2');
 }
 
 main();

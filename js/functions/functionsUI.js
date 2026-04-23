@@ -20,7 +20,7 @@ export const updateSelectStyles = (id, mainClass) => {
 };
 
 // Fetch the API data based on the URL params
-export const fetchData = async (URL) => {
+const fetchData = async (URL) => {
     let response = await fetch(URL);
     if(!response.ok) throw new Error("Error loading the data. Try again");
 
@@ -35,8 +35,8 @@ export const renderCards = async(URL) => {
         let data = await fetchData(URL);
         let cardsHTML = '';
 
-        await data.forEach(character => {
-            cardsHTML += card(character.name, character.status, character.species, character.image, character.location.name, character.id)
+        await data.forEach((character, index) => {
+            cardsHTML += card(character.name, character.status, character.species, character.image, character.location.name, character.id, index)
         });
         cardsContainer.innerHTML = cardsHTML;
     } catch (error) {
