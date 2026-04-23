@@ -5,7 +5,7 @@ export default function(name, status, species, imageURL, origin, id, firstCard) 
                 <p>${status}</p>
             </span>
             <figure class="card__figure">
-                <img src="${imageURL}" alt="Image of ${name}" class="card__img" loading="${firstCard ? 'lazy' : 'eager'}" fetchpriority="${firstCard ? 'auto' : 'high'}">
+                <img src="${imageURL}" alt="Image of ${name}" class="card__img" loading="eager" fetchpriority="high">
             </figure>
             <div class="card__information">
                 <h3 class="card__name">${name}</h3>
