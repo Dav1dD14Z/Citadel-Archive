@@ -21,18 +21,6 @@ const initializeStatus = () => {
 
 let charactersState = initializeStatus();
 
-const render = (data) => renderCards(cardsContainer, data);
-
-const applyFilters = () => {
-    let characters = charactersState.getCharacters();
-    let filter = charactersState.getFilter();
-
-    if(!filter || filter === 'all') return characters;
-    let filteredCharacters = filterCharacters(characters, filter);
-    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = 'No character was found!'
-    return filteredCharacters;
-}
-
 const fetchCharacters = async (filter) => {
     try {
         let pageNumber = charactersState.getPageNumber();
@@ -40,7 +28,11 @@ const fetchCharacters = async (filter) => {
         charactersState.setCharacters(data);
         let characters = charactersState.getCharacters();
         
-        render(fetchCharacters());
+        if(!filter) return renderCards(cardsContainer, characters);
+        if(filter === 'all') return renderCards(cardsContainer, characters);
+
+        let filteredCharacters = filterCharacters(characters, filter);
+        renderCards(cardsContainer, filteredCharacters);
     } catch (error) {
         cardsContainer.innerHTML = `Temporal Error: ${error}`
     }
@@ -60,7 +52,13 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     form.reset();
 
-    render(applyFilters())
+    let characters = charactersState.getCharacters();
+    let filteredCharacters = filterCharacters(characters, characterName);
+
+    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
+
+    let filterApplied = charactersState.setFilter(characterName);
+    renderCards(cardsContainer, filteredCharacters);
 })
 
 loadButton.addEventListener('click', () => {
