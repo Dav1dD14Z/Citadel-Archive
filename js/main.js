@@ -5,6 +5,7 @@ let cardsContainer = document.querySelector('.cards__container');
 let form = document.querySelector('.hero__form');
 let loadButton = document.querySelector('.cards__button');
 let statusSelect = document.querySelector('.cards__status');
+let heroSelect = document.querySelector('.hero__select');
 
 const initializeStatus = () => {
     let characters = [];
@@ -41,6 +42,19 @@ const fetchCharacters = async (filter) => {
     }
 }
 
+const renderByStatus = (newStatus) => {
+    charactersState.setStatus(newStatus);
+
+    let characters = charactersState.getCharacters();
+    let filter = charactersState.getFilter();
+
+    let charactersFilteredByName = filterCharactersByName(characters, filter);
+    let filteredCharacters = filterCharactersByStatus(charactersFilteredByName, newStatus);
+
+    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
+    renderCards(cardsContainer, filteredCharacters)
+}
+
 const main = async () => {
     updateSelectStylesInformation.forEach(info => {
         updateSelectStyles(info.id, info.mainClass);
@@ -55,7 +69,6 @@ main();
 form.addEventListener('submit', (e) => {
     let characterName = document.querySelector('.hero__input').value;
     e.preventDefault();
-    form.reset();
 
     let characters = charactersState.getCharacters();
     let status = charactersState.getStatus();
@@ -64,6 +77,7 @@ form.addEventListener('submit', (e) => {
     let filteredCharacters = filterCharactersByName(characters, characterName);
     
     if(!characterName || characterName.trim() === "") {
+        document.querySelector('.hero__input').value = '';
         let newFilter = 'all';
         charactersState.setFilter(newFilter);
         let charactersFilteredByStatus = filterCharactersByStatus(characters, status)
@@ -75,6 +89,7 @@ form.addEventListener('submit', (e) => {
     let charactersFilteredByStatus = filterCharactersByStatus(filteredCharacters, status);
 
     renderCards(cardsContainer, charactersFilteredByStatus);
+    document.querySelector('.hero__input').value = '';
 })
 
 loadButton.addEventListener('click', () => {
@@ -87,14 +102,10 @@ loadButton.addEventListener('click', () => {
 
 statusSelect.addEventListener('change', () => {
     let newStatus = statusSelect.value;
-    charactersState.setStatus(newStatus);
-
-    let characters = charactersState.getCharacters();
-    let filter = charactersState.getFilter();
-
-    let charactersFilteredByName = filterCharactersByName(characters, filter);
-    let filteredCharacters = filterCharactersByStatus(charactersFilteredByName, newStatus);
-
-    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
-    renderCards(cardsContainer, filteredCharacters)
+    renderByStatus(newStatus);
 })
+
+heroSelect.addEventListener('change', () => {
+    let newStatus = heroSelect.value;
+    renderByStatus(newStatus);
+});
