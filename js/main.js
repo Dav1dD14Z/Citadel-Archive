@@ -59,6 +59,7 @@ form.addEventListener('submit', (e) => {
 
     let characters = charactersState.getCharacters();
     let status = charactersState.getStatus();
+    charactersState.setFilter(characterName);
 
     let filteredCharacters = filterCharactersByName(characters, characterName);
     
@@ -71,7 +72,6 @@ form.addEventListener('submit', (e) => {
     
     if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
     
-    charactersState.setFilter(characterName);
     let charactersFilteredByStatus = filterCharactersByStatus(filteredCharacters, status);
 
     renderCards(cardsContainer, charactersFilteredByStatus);
@@ -94,5 +94,7 @@ statusSelect.addEventListener('change', () => {
 
     let charactersFilteredByName = filterCharactersByName(characters, filter);
     let filteredCharacters = filterCharactersByStatus(charactersFilteredByName, newStatus);
+
+    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
     renderCards(cardsContainer, filteredCharacters)
 })
