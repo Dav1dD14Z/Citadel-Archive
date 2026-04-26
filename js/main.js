@@ -25,12 +25,13 @@ const initializeStatus = () => {
 
 let charactersState = initializeStatus();
 
-const fetchCharacters = async (filter, status) => {
+const fetchCharacters = async (filter) => {
     try {
         let pageNumber = charactersState.getPageNumber();
         let data = await fetchData(pageNumber);
         charactersState.setCharacters(data);
         let characters = charactersState.getCharacters();
+        let status = charactersState.getStatus();
         
         let charactersFilteredByName = filterCharactersByName(characters, filter);
         let characterFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, status);
@@ -44,7 +45,9 @@ const main = async () => {
     updateSelectStylesInformation.forEach(info => {
         updateSelectStyles(info.id, info.mainClass);
     });
-    fetchCharacters();
+
+    let filter = charactersState.getFilter();
+    fetchCharacters(filter);
 }
 
 main();
@@ -78,9 +81,8 @@ loadButton.addEventListener('click', () => {
     let characters = charactersState.getCharacters();
     let filter = charactersState.getFilter();
     let pageNumber = charactersState.getPageNumber();
-    let status = charactersState.getStatus();
     charactersState.setPageNumber(pageNumber + 1);
-    fetchCharacters(filter, status);
+    fetchCharacters(filter);
 })
 
 statusSelect.addEventListener('change', () => {
