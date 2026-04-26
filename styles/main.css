@@ -3,6 +3,7 @@
 @import url('./components/hero.css');
 @import url('./components/cards.css');
 @import url('./components/anomaly.css');
+@import url('./components/loader.css');
 
 * {
     box-sizing: border-box;

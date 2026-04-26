@@ -23,7 +23,7 @@ export const updateSelectStyles = (id, mainClass) => {
 export const fetchData = async (pageNumber) => {
     let URL = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
     let response = await fetch(URL);
-    if(!response.ok) throw new Error("Error loading the data. Try again");
+    if(!response.ok) throw new Error(response.status);
 
     let data = await response.json();
     return data.results
