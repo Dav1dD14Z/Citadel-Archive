@@ -20,7 +20,8 @@ export const updateSelectStyles = (id, mainClass) => {
 };
 
 // Fetch the API data based on the URL params
-const fetchData = async (URL) => {
+export const fetchData = async (pageNumber) => {
+    let URL = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
     let response = await fetch(URL);
     if(!response.ok) throw new Error("Error loading the data. Try again");
 
@@ -29,17 +30,20 @@ const fetchData = async (URL) => {
 };
 
 // Render the cards
-export const renderCards = async(URL) => {
-    let cardsContainer = document.querySelector('.cards__container');
-    try {
-        let data = await fetchData(URL);
-        let cardsHTML = '';
+export const renderCards = (cardsContainer, data) => {
+    let cardsHTML = '';
+    cardsContainer.innerHTML = ''
 
-        await data.forEach((character, index) => {
-            cardsHTML += card(character.name, character.status, character.species, character.image, character.location.name, character.id, index)
-        });
-        cardsContainer.innerHTML = cardsHTML;
-    } catch (error) {
-        cardsContainer.innerHTML = `Temporal Error Message: ${error}`
-    }
+    data.forEach((character, index) => {
+        cardsHTML += card(character.name, character.status, character.species, character.image, character.location.name, character.id, index)
+    });
+    cardsContainer.innerHTML = cardsHTML;
+}
+
+// Filters the characters
+export const filterCharacters = (data, name) => {
+    if(data.length === 0) return [];
+    let characters = data.filter(character => character.name.toLowerCase().includes(name.toLowerCase()));
+    if(characters.length === 0) return [];
+    return characters;
 }

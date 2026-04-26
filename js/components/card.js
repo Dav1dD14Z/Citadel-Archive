@@ -1,11 +1,11 @@
-export default function(name, status, species, imageURL, origin, id, firstCard = false) {
+export default function(name, status, species, imageURL, origin, id, index) {
     return `<article class="card card--${status.toLowerCase()}" id="card-${id}" aria-label="Card for ${name}, a ${species} from ${origin} with status ${status}">
             <span class="card__status" aria-label="Status: ${status}" title="The status of the character ${name}">
                 <div class="card__circle card__circle--${status.toLowerCase()}" aria-hidden="true"></div>
                 <p>${status}</p>
             </span>
             <figure class="card__figure">
-                <img src="${imageURL}" alt="Image of ${name}" class="card__img" loading="${!firstCard ? 'eager' : 'lazy'}" fetchpriority="${!firstCard ? 'high' : ''}">
+                <img src="${imageURL}" alt="Image of ${name}" class="card__img" loading="${index === 0 ? 'eager' : 'lazy'}" fetchpriority="${index === 0 ? 'high' : ''}">
             </figure>
             <div class="card__information">
                 <h3 class="card__name">${name}</h3>
