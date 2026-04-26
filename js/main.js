@@ -40,6 +40,7 @@ const renderLoader = () => {
     loadButton.classList.add('cards__button--disabled')
     let template = loader();
     cardsContainer.innerHTML = template;
+    loadButton.classList = 'cards__button';
 }
 
 const fetchCharacters = async (filter) => {
