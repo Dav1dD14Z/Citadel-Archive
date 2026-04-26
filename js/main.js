@@ -55,6 +55,8 @@ form.addEventListener('submit', (e) => {
     let characters = charactersState.getCharacters();
     let filteredCharacters = filterCharacters(characters, characterName);
 
+    if(!characterName || characterName.trim() === "") return renderCards(cardsContainer, characters)
+
     if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
 
     let filterApplied = charactersState.setFilter(characterName);
