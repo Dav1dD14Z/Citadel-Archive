@@ -1,5 +1,6 @@
 import { updateSelectStyles, renderCards, fetchData, filterCharactersByName, filterCharactersByStatus } from "./functions/functionsUI.js";
 import { updateSelectStylesInformation } from "./data/information.js";
+import anomaly from "./components/anomaly.js";
 
 let cardsContainer = document.querySelector('.cards__container');
 let form = document.querySelector('.hero__form');
@@ -42,6 +43,13 @@ const fetchCharacters = async (filter) => {
     }
 }
 
+const characterNotFound = () => {
+    cardsContainer.innerHTML = "";
+    let template = anomaly();
+    cardsContainer.innerHTML = template;
+    loadButton.classList.add('cards__button--disabled') 
+}
+
 const renderByStatus = (newStatus) => {
     charactersState.setStatus(newStatus);
 
@@ -51,7 +59,7 @@ const renderByStatus = (newStatus) => {
     let charactersFilteredByName = filterCharactersByName(characters, filter);
     let filteredCharacters = filterCharactersByStatus(charactersFilteredByName, newStatus);
 
-    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
+    if(filteredCharacters.length === 0) return characterNotFound();
     renderCards(cardsContainer, filteredCharacters)
 }
 
@@ -64,8 +72,6 @@ const main = async () => {
     fetchCharacters(filter);
 }
 
-main();
-
 form.addEventListener('submit', (e) => {
     let characterName = document.querySelector('.hero__input').value;
     e.preventDefault();
@@ -75,6 +81,7 @@ form.addEventListener('submit', (e) => {
     charactersState.setFilter(characterName);
 
     let filteredCharacters = filterCharactersByName(characters, characterName);
+    let charactersFilteredByStatus = filterCharactersByStatus(filteredCharacters, status);
     
     if(!characterName || characterName.trim() === "") {
         document.querySelector('.hero__input').value = '';
@@ -84,9 +91,7 @@ form.addEventListener('submit', (e) => {
         return renderCards(cardsContainer, charactersFilteredByStatus)
     } 
     
-    if(filteredCharacters.length === 0) return cardsContainer.innerHTML = "No user found!"
-    
-    let charactersFilteredByStatus = filterCharactersByStatus(filteredCharacters, status);
+    if(charactersFilteredByStatus.length === 0) return characterNotFound();
 
     renderCards(cardsContainer, charactersFilteredByStatus);
     document.querySelector('.hero__input').value = '';
@@ -109,3 +114,20 @@ heroSelect.addEventListener('change', () => {
     let newStatus = heroSelect.value;
     renderByStatus(newStatus);
 });
+
+cardsContainer.addEventListener('click', (e) => {
+    if(e.target && e.target.classList.contains("anomaly__reset") || e.target && e.target.closest(".anomaly__reset")) {
+        loadButton.classList.remove('cards__button--disabled') 
+        let characters = charactersState.getCharacters();
+        let newStatus = 'all'
+        let newFilter = 'all';
+        charactersState.setFilter(newFilter);
+        charactersState.setStatus(newStatus);
+    
+        let charactersFilteredByName = filterCharactersByName(characters, newFilter);
+        let charactersFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, newStatus);
+        renderCards(cardsContainer, charactersFilteredByStatus);
+    }
+})
+
+main();

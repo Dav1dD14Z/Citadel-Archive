@@ -296,6 +296,11 @@
     font-size: 0.9rem;
     background-color: var(--primary-color);
     box-shadow: 0 0 10px var(--primary-color);
+    transition: 0.3s ease all;
+}
+
+.cards__button--disabled {
+    display: none;
 }
 
 .cards__button:is(:hover, :focus) {

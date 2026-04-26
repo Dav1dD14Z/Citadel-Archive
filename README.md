@@ -17,7 +17,3 @@ I built this project to practice working with APIs, handling asynchronous data, 
 
 ## ⚙️ How to run
 Just open `index.html` in your browser.
-
----
-
-This is one of my early projects while learning frontend development.
