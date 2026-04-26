@@ -40,10 +40,21 @@ export const renderCards = (cardsContainer, data) => {
     cardsContainer.innerHTML = cardsHTML;
 }
 
-// Filters the characters
-export const filterCharacters = (data, name) => {
+// Filters the characters by name
+export const filterCharactersByName = (data, name) => {
     if(data.length === 0) return [];
+    if(name === 'all') return data;
     let characters = data.filter(character => character.name.toLowerCase().includes(name.toLowerCase()));
     if(characters.length === 0) return [];
     return characters;
+}
+
+// Filters the characters by the status
+export const filterCharactersByStatus = (data, status) => {
+    if(data.length === 0) return [];
+    if(status === 'all') return data;
+
+    let characters = data.filter(character => character.status.toLowerCase() === status.toLowerCase());
+    if(characters.length === 0) return [];
+    return characters; 
 }
