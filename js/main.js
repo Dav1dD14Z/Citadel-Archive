@@ -68,7 +68,11 @@ const renderByStatus = (newStatus) => {
     let charactersFilteredByName = filterCharactersByName(characters, filter);
     let filteredCharacters = filterCharactersByStatus(charactersFilteredByName, newStatus);
 
-    if(filteredCharacters.length === 0) return characterNotFound();
+    if(filteredCharacters.length === 0 && charactersFilteredByName) {
+        let newStatus = 'all';
+        charactersState.setStatus(newStatus);
+        return characterNotFound("206", "The current registry scan returned no matching variants for the selected life-state. However, the Citadel archive is still synchronizing additional dimensions, and compatible entities may appear as more registry pages are loaded.");
+    } 
     renderLoader();
     renderCards(cardsContainer, filteredCharacters)
 }
@@ -147,9 +151,13 @@ cardsContainer.addEventListener('click', (e) => {
     }
     if(e.target && e.target.classList.contains("anomaly__retry") || e.target && e.target.closest(".anomaly__retry")) {
         document.querySelector('.hero__input').value = ''
-        let filter = charactersState.getFilter();
         renderLoader()
-        fetchCharacters(filter);
+        let characters = charactersState.getCharacters();
+        let filter = charactersState.getFilter();
+        let status = charactersState.getStatus();
+        let charactersFilteredByName = filterCharactersByName(characters, filter);
+        let charactersFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, status);
+        renderCards(cardsContainer, charactersFilteredByStatus);
     }
 })
 
