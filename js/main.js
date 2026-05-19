@@ -28,6 +28,47 @@ const initializeStatus = () => {
 
 let charactersState = initializeStatus();
 
+const updatedState = () => {
+    let characters = charactersState.getCharacters();
+    let status = charactersState.getStatus();
+    let filter = charactersState.getFilter();
+    
+    let charactersFilteredByName = filterCharactersByName(characters, filter);
+    let characterFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, status);
+
+    return {charactersFilteredByName, characterFilteredByStatus};
+}
+
+const validateCharacters = characters => {
+    let charactersFilteredByName = characters.charactersFilteredByName;
+    let charactersFilteredByStatus = characters.characterFilteredByStatus;
+
+    if(charactersFilteredByStatus.length === 0 && charactersFilteredByName.length !== 0) {
+        throw {
+            code: 206, 
+            message: "The current registry scan returned no matching variants for the selected life-state. However, the Citadel archive is still synchronizing additional dimensions, and compatible entities may appear as more registry pages are loaded."
+        }
+    }
+
+    if(charactersFilteredByStatus.length === 0) throw {
+        code: 404, 
+        message: "We couldn't find that character in this dimension. They might have been erased by the Council of Ricks or simply don't exist in our current timeline scan."
+    }
+
+    return charactersFilteredByStatus;
+}
+
+const renderBasedOnTheState = () => {
+    try {
+        loadButton.classList.remove('cards__button--disabled') 
+        let charactersInformation = updatedState();
+        let verifiedInformation = validateCharacters(charactersInformation);
+        renderCards(cardsContainer, verifiedInformation)
+    } catch (error) {
+        return characterNotFound(error.code, error.message);
+    }
+}
+
 const characterNotFound = (status, description) => {
     cardsContainer.innerHTML = "";
     let template = anomaly(status, description);
@@ -43,124 +84,71 @@ const renderLoader = () => {
     loadButton.classList = 'cards__button';
 }
 
-const fetchCharacters = async (filter) => {
+const fetchCharacters = async () => {
     try {
         let pageNumber = charactersState.getPageNumber();
         let data = await fetchData(pageNumber);
         charactersState.setCharacters(data);
-        let characters = charactersState.getCharacters();
-        let status = charactersState.getStatus();
-        
-        let charactersFilteredByName = filterCharactersByName(characters, filter);
-        let characterFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, status);
-        renderCards(cardsContainer, characterFilteredByStatus);
+        renderBasedOnTheState()
     } catch (error) {
         characterNotFound(error.message, "There was an issue fetching the characters. The API might be down or you might have lost connection to the Citadel's network. Try again later or check your connection.");
     }
 }
 
-const renderByStatus = (newStatus) => {
-    charactersState.setStatus(newStatus);
-
-    let characters = charactersState.getCharacters();
-    let filter = charactersState.getFilter();
-
-    let charactersFilteredByName = filterCharactersByName(characters, filter);
-    let filteredCharacters = filterCharactersByStatus(charactersFilteredByName, newStatus);
-
-    if(filteredCharacters.length === 0 && charactersFilteredByName.length !== 0) {
-        let newStatus = 'all';
-        charactersState.setStatus(newStatus);
-        return characterNotFound("206", "The current registry scan returned no matching variants for the selected life-state. However, the Citadel archive is still synchronizing additional dimensions, and compatible entities may appear as more registry pages are loaded.");
-    } 
-
-    if(charactersFilteredByName.length === 0) return characterNotFound();
-    
-    renderLoader();
-    renderCards(cardsContainer, filteredCharacters)
-}
-
-const main = async () => {
+const main = () => {
     updateSelectStylesInformation.forEach(info => {
         updateSelectStyles(info.id, info.mainClass);
     });
 
-    renderLoader()
     let filter = charactersState.getFilter();
-    fetchCharacters(filter);
+    renderLoader()
+    fetchCharacters();
 }
 
 form.addEventListener('submit', (e) => {
     let characterName = document.querySelector('.hero__input').value;
-    loadButton.classList.remove('cards__button--disabled') 
     e.preventDefault();
     renderLoader();
 
-    let characters = charactersState.getCharacters();
-    let status = charactersState.getStatus();
     charactersState.setFilter(characterName);
-
-    let filteredCharacters = filterCharactersByName(characters, characterName);
-    let charactersFilteredByStatus = filterCharactersByStatus(filteredCharacters, status);
     
     if(!characterName || characterName.trim() === "") {
-        document.querySelector('.hero__input').value = '';
-        let newFilter = 'all';
-        charactersState.setFilter(newFilter);
-        let charactersFilteredByStatus = filterCharactersByStatus(characters, status)
-        return renderCards(cardsContainer, charactersFilteredByStatus)
+        charactersState.setFilter('all');
     } 
-    
-    if(charactersFilteredByStatus.length === 0) return characterNotFound();
 
-    renderCards(cardsContainer, charactersFilteredByStatus);
+    renderBasedOnTheState();
     document.querySelector('.hero__input').value = '';
 })
 
 loadButton.addEventListener('click', () => {
-    let characters = charactersState.getCharacters();
-    let filter = charactersState.getFilter();
     let pageNumber = charactersState.getPageNumber();
     charactersState.setPageNumber(pageNumber + 1);
     renderLoader();
-    fetchCharacters(filter);
+    fetchCharacters();
 })
 
 statusSelect.addEventListener('change', () => {
     let newStatus = statusSelect.value;
-    renderByStatus(newStatus);
+    charactersState.setStatus(newStatus);
+    renderBasedOnTheState()
 })
 
 heroSelect.addEventListener('change', () => {
     let newStatus = heroSelect.value;
-    renderByStatus(newStatus);
+    charactersState.setStatus(newStatus);
+    renderBasedOnTheState()
 });
 
 cardsContainer.addEventListener('click', (e) => {
     if(e.target && e.target.classList.contains("anomaly__reset") || e.target && e.target.closest(".anomaly__reset")) {
-        loadButton.classList.remove('cards__button--disabled') 
         document.querySelector('.hero__input').value = '';
-        renderLoader();
-
-        let characters = charactersState.getCharacters();
-        let newStatus = 'all'
-        let newFilter = 'all';
-        charactersState.setFilter(newFilter);
-        charactersState.setStatus(newStatus);
-    
-        let charactersFilteredByName = filterCharactersByName(characters, newFilter);
-        let charactersFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, newStatus);
-        renderCards(cardsContainer, charactersFilteredByStatus);
+        charactersState.setFilter('all')
+        renderBasedOnTheState();
     }
     if(e.target && e.target.classList.contains("anomaly__retry") || e.target && e.target.closest(".anomaly__retry")) {
         document.querySelector('.hero__input').value = ''
-        renderLoader()
-        let characters = charactersState.getCharacters();
-        let filter = charactersState.getFilter();
-        let status = charactersState.getStatus();
-        let charactersFilteredByName = filterCharactersByName(characters, filter);
-        let charactersFilteredByStatus = filterCharactersByStatus(charactersFilteredByName, status);
-        renderCards(cardsContainer, charactersFilteredByStatus);
+        charactersState.setStatus('all');
+        renderBasedOnTheState();
     }
 })
 
