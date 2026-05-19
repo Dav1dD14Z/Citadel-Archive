@@ -100,7 +100,6 @@ const main = () => {
         updateSelectStyles(info.id, info.mainClass);
     });
 
-    let filter = charactersState.getFilter();
     renderLoader()
     fetchCharacters();
 }

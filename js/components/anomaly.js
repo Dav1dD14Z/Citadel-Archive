@@ -7,7 +7,7 @@ export default function(status, description) {
             </figure>
             <h2 class="anomaly__title">Anomaly Detected: ${status}</h2>
             <p class="anomaly__description">${description}</p>
-            <button class=${status === 206 ? "anomaly__retry" : "anomaly__reset"} title="Reset the filters">
+            <button class="${status === 206 ? "anomaly__retry" : "anomaly__reset"}" title="Reset the filters">
                 ${status === 206 ? "Reset the life status" : "Retry connection"}
                 <i class="fa-solid fa-arrow-rotate-right anomaly__resetImage" aria-hidden="true"></i>
             </button>
